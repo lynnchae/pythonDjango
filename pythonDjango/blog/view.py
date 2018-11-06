@@ -34,16 +34,18 @@ def blogs(request):
     return HttpResponse(t.render(c))
 
 
-def blog(request,blogid):
+def blog(request, blogid):
     blog = TBlog.objects.get(id=blogid)
     md = markdown.Markdown(extensions=[
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
         'markdown.extensions.toc',
+        'markdown.extensions.fenced_code',
     ])
 
-    blog.content = md.convert(blog.content)
+    blog.content = md.convert(blog.content).replace('amp;', '')  # 修复特殊字符可能导致的bug
     blog.toc = md.toc
     t = loader.get_template("blog.html")
     c = {'blog': blog}
+
     return HttpResponse(t.render(c))
