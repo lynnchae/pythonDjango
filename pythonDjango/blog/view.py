@@ -29,7 +29,7 @@ def current_time(request):
 def blogs(request):
     blogs = TBlog.objects.filter(user_id=1).values()
     blogs = list(blogs)
-    t = loader.get_template("blogs.html")
+    t = loader.get_template("home.html")
     c = {'blogs': blogs}
     return HttpResponse(t.render(c))
 
