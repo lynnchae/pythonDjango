@@ -903,3 +903,5 @@ img {
 .current a {
     color: red;
 }
+
+.toc ul li a {color:grey;}
